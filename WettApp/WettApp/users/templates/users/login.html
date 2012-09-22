@@ -7,6 +7,11 @@
 {% block content %}
     <form action="{{ request.path }}" method="post" class="form-horizontal">
         {% csrf_token %}
+         {% if form.errors %}
+            <div class="alert alert-error">
+                Anmeldedaten ungültig.
+            </div>
+        {% endif %}
         <div class="control-group">
             <label class="control-label" for="{{ form.username.id_for_label }}">Username</label>
             <div class="controls">
