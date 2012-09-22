@@ -1,5 +1,11 @@
 # Django settings for WettApp project.
 
+import os
+
+CONF_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.abspath(os.path.join(CONF_DIR, '..'))
+
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -53,9 +59,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_DIR, 'static'),
 )
 
 # List of finder classes that know how to find static files in
