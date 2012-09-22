@@ -98,7 +98,9 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates'),
 )
 
+LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/bets/index/'
+LOGOUT_URL = '/users/logout/'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
