@@ -104,6 +104,8 @@ LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/bets/index/'
 LOGOUT_URL = '/users/logout/'
 
+AUTH_PROFILE_MODULE = 'users.UserProfile'
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
