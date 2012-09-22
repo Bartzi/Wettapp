@@ -20,10 +20,10 @@
         {% if bet_list %}
             <ul class="thumbnails">
                 {% for bet_tuple in bet_list %}
-                    <li class=span3>
+                    <li class=span4>
                         <div class="thumbnail">
-                            <h2 class="bet-title">{{bet_tuple.0.title}}</h2>
-                            <table class="table table-hover">
+                            <h2 class="bet-title anti-overflow">{{bet_tuple.0.title}}</h2>
+                            <table class="bet-overview-table">
                             {% for score_tuple in bet_tuple.1 %}
                                 <tr>
                                     <th> {{score_tuple.0.username}} </th>
