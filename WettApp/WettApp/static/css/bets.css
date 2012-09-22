@@ -1,4 +1,25 @@
 /* bet titles */
 .bet-title{
     text-align: center;
+    width: 100%;
+    height: 45px;
+}
+
+.anti-overflow{
+    overflow: hidden;
+}
+
+.bet-overview-table{
+    text-align: center;
+    width: 100%;
+}
+
+.bet-overview-table th,.bet-overview-table td{
+    padding: 8px;
+    line-height: 20px;
+    vertical-align: top;
+}
+
+.bet-overview-table th{
+    font-weight: bold;
 }
