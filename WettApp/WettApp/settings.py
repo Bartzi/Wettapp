@@ -2,8 +2,7 @@
 
 import os
 
-CONF_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_DIR = os.path.abspath(os.path.join(CONF_DIR, '..'))
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 DEBUG = True
