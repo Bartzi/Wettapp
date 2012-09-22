@@ -21,16 +21,16 @@
             <ul class="thumbnails">
                 {% for bet_tuple in bet_list %}
                     <li class=span4>
-                        <div class="thumbnail">
-                            <h2 class="bet-title anti-overflow">{{bet_tuple.0.title}}</h2>
-                            <table class="bet-overview-table">
-                            {% for score_tuple in bet_tuple.1 %}
-                                <tr>
-                                    <th> {{score_tuple.0.username}} </th>
-                                    <td> {{score_tuple.1}} </td>
-                                </tr>
-                            {% endfor %}
-                            </table>
+                        <div class="thumbnail {{bet_tuple.2}}">
+                                <h2 class="bet-title anti-overflow">{{bet_tuple.0.title}}</h2>
+                                <table class="bet-overview-table">
+                                {% for score_tuple in bet_tuple.1 %}
+                                    <tr>
+                                        <th> {{score_tuple.0.username}} </th>
+                                        <td> {{score_tuple.1}} </td>
+                                    </tr>
+                                {% endfor %}
+                                </table>
                         </div>
                     </li>
                 {% endfor %}
