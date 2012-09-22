@@ -15,6 +15,15 @@ body {
     margin-bottom: 30px;
 }
 
+/* navbar */
+.navbar-inner {
+    padding-left: 50px;
+}
+.navbar .brand {
+    margin-left: 0;
+    margin-right: 50px;
+}
+
 /* forms */
 form {
     margin-bottom: 0;
