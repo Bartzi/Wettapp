@@ -1,0 +1,14 @@
+Feature request
+(Kernfeatures)
+
+
+- 1 vs. 1 Wettsystem
+- für gewonnene Wetten werden Punkte vergeben
+- es können beliebige Wetten angelegt werden
+- Wetten bestehen aus einer Wettformulierung und einem Punktestand für jeden Spieler
+- jeweils anderer Spieler vergibt Punkte an Gewinner
+- Wettpartner können eingeladen werden
+- Zugriff auf Ergebnisse und Verwaltung von Wetten von überall möglich (Internet)
+- Geräteübergreifende Plattform (Internet und Android-App)
+- Eigener Bereich mit Login
+- bei Punktevergabe werden Zeit und Wette protokolliert
