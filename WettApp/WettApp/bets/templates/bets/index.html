@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'bets/base.html' %}
 
 {% block title %}
     Your Bets
@@ -7,3 +7,34 @@
 {% block heading %}
     <h1>Your Bets</h1>
 {% endblock heading %}
+
+{% block content %}
+    <div class="action_bar">
+        {# here we should place buttons like "start new bet" and "statistics" #}
+    </div>
+    <div class="bet_overview">
+        {% if bet_list %}
+            <ul class="thumbnails">
+                {% for bet_tuple in bet_list %}
+                    <li class=span3>
+                        <div class="thumbnail">
+                            <h2 class="bet-title">{{bet_tuple.0.title}}</h2>
+                            <table class="table table-hover">
+                            {% for score_tuple in bet_tuple.1 %}
+                                <tr>
+                                    <th> {{score_tuple.0.username}} </th>
+                                    <td> {{score_tuple.1}} </td>
+                                </tr>
+                            {% endfor %}
+                            </table>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h1> There are no bets yet!! </h1>
+        {% endif %}
+
+       
+    </div>
+{% endblock content %}
