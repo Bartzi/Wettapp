@@ -1,1 +1,26 @@
 {% extends 'base.html' %}
+
+{% block heading %}
+    <h1>Login</h1>
+{% endblock heading %}
+
+{% block content %}
+    <form action="{{ request.path }}" method="post" class="form-horizontal">
+        {% csrf_token %}
+        <div class="control-group">
+            <label class="control-label" for="{{ form.username.id_for_label }}">Username</label>
+            <div class="controls">
+                {{ form.username }}
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="{{ form.password.id_for_label }}">Password</label>
+            <div class="controls">
+                {{ form.password }}
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </form>
+{% endblock content %}
