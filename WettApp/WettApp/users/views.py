@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.contrib.auth import views as authviews
 
 from WettApp.users.forms import LoginForm
