@@ -14,6 +14,20 @@
     width: 100%;
 }
 
+.transparent-text{
+    background-color: transparent;
+}
+
+.warning{
+    background-color: #FF8080;
+    border-color: red;
+}
+
+.good{
+    background-color: #DFF0D8;
+    border-color: green;
+}
+
 .bet-overview-table th,.bet-overview-table td{
     padding: 8px;
     line-height: 20px;
