@@ -9,15 +9,14 @@
     overflow: hidden;
 }
 
-.bet-overview-table{
-    text-align: center;
-    width: 100%;
+.bet-scores{
+    float: left;
+    width: 50%;
 }
 
-.transparent-text{
-    background-color: transparent;
+.clearfix{
+    clear: left;
 }
-
 .warning{
     background-color: #FF8080;
     border-color: red;
@@ -26,6 +25,11 @@
 .good{
     background-color: #DFF0D8;
     border-color: green;
+}
+
+.bet-overview-table{
+    text-align: center;
+    width: 100%;
 }
 
 .bet-overview-table th,.bet-overview-table td{

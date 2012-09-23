@@ -11,20 +11,18 @@ def index(request):
     bet_list = []
     for bet in user_bets:
         scores_list = []
+        score_diff = 0
         for participant in bet.participants.all():
             score = bet.participant_score(participant)
             scores_list.append((participant, score))
-        score_diff = scores_list[0][1].score - scores_list[1][1].score
-        if request.user == scores_list[0][0]:
-            if score_diff < 0:
-                bet_tuple = (bet, scores_list, "warning")
+            if participant == request.user:
+                score_diff += score.score
             else:
-                bet_tuple = (bet, scores_list, "good")
+                score_diff -= score.score
+        if score_diff < 0:
+            bet_tuple = (bet, scores_list, "warning")
         else:
-            if score_diff > 0:
-                bet_tuple = (bet, scores_list, "good")
-            else:
-                bet_tuple = (bet, scores_list, "warning")
+            bet_tuple = (bet, scores_list, "good")
         bet_list.append(bet_tuple)
 
     return render(request, 'bets/index.html', {'bet_list': bet_list})
