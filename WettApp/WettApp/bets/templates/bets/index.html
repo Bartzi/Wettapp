@@ -21,23 +21,25 @@
             <ul class="thumbnails">
                 {% for bet_tuple in bet_list %}
                     <li class=span4>
-                        <div class="thumbnail {{bet_tuple.2}}">
-                                <h2 class="bet-title anti-overflow">{{bet_tuple.0.title}}</h2>
-                                {% for score_tuple in bet_tuple.1 %}
-                                    <div class="bet-scores">
-                                        <table class="bet-overview-table">
-                                            <tr>
-                                                <th> {{score_tuple.0.username}} </th>
-                                            </tr>
-                                            <tr>
-                                                <td> {{score_tuple.1}} </td>
-                                            </tr>
-                                        </table>
+                        <a class="bet-details-link" href="#">
+                            <div class="thumbnail {{bet_tuple.2}}">
+                                    <h2 class="bet-title anti-overflow">{{bet_tuple.0.title}}</h2>
+                                    {% for score_tuple in bet_tuple.1 %}
+                                        <div class="bet-scores">
+                                            <table class="bet-overview-table">
+                                                <tr>
+                                                    <th> {{score_tuple.0.username}} </th>
+                                                </tr>
+                                                <tr>
+                                                    <td> {{score_tuple.1}} </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    {% endfor %}
+                                    <div class="clearfix">
                                     </div>
-                                {% endfor %}
-                                <div class="clearfix">
-                                </div>
-                        </div>
+                            </div>
+                        </a>
                     </li>
                 {% endfor %}
             </ul>
