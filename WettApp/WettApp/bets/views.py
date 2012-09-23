@@ -26,3 +26,18 @@ def index(request):
         bet_list.append(bet_tuple)
 
     return render(request, 'bets/index.html', {'bet_list': bet_list})
+
+
+@login_required
+def details(request, bet_id):
+    bet_data = {}
+    current_bet = Bet.objects.get(id=bet_id)
+    bet_data['bet'] = current_bet
+    for participant in current_bet.participants.all():
+        score = current_bet.participant_score(participant)
+        if participant == request.user:
+            bet_data['yourself'] = score
+        else:
+            bet_data['opponent'] = score
+
+    return render(request, 'bets/details.html', {'bet_data': bet_data})
