@@ -19,12 +19,7 @@ def index(request):
                 score_diff += score.score
             else:
                 score_diff -= score.score
-        if score_diff < 0:
-            bet_tuple = (bet, scores_list, "warning")
-        else:
-            bet_tuple = (bet, scores_list, "good")
-        bet_list.append(bet_tuple)
-
+        bet_list.append((bet, scores_list, get_score_class(score_diff)))
     return render(request, 'bets/index.html', {'bet_list': bet_list})
 
 
@@ -38,6 +33,12 @@ def details(request, bet_id):
         if participant == request.user:
             bet_data['yourself'] = score
         else:
-            bet_data['opponent'] = score
-
+            bet_data['opponent'] = (participant, score)
     return render(request, 'bets/details.html', {'bet_data': bet_data})
+
+
+def get_score_class(score_diff):
+    if score_diff < 0:
+        return "warning"
+    else:
+        return "good"
