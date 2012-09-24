@@ -9,3 +9,6 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)   # this is required
 
     buddies = models.ManyToManyField(User, related_name='buddies')
+
+    def __unicode__(self):
+        return self.user.username
