@@ -3,6 +3,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from WettApp.bets.models import Bet
+from WettApp.bets.forms import NewBetForm
 
 
 @login_required
@@ -35,6 +36,17 @@ def details(request, bet_id):
         else:
             bet_data['opponent'] = (participant, score)
     return render(request, 'bets/details.html', {'bet_data': bet_data})
+
+
+@login_required
+def new_bet(request):
+    if request.method == 'POST':
+        form = NewBetForm(request.POST, request.user)
+        if form.is_valid():
+            pass
+    else:
+        form = NewBetForm(request.user)
+    return render(request, 'bets/new.html', {'form': form})
 
 
 def get_score_class(score_diff):

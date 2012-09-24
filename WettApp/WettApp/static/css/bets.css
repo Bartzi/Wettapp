@@ -79,3 +79,7 @@
 .bet-overview-table th{
     font-weight: bold;
 }
+
+.action_bar{
+  margin-bottom: 10px;
+}

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 class Bet(models.Model):
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
     start_date = models.DateTimeField('start Date')
     participants = models.ManyToManyField(User)
