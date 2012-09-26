@@ -9,11 +9,11 @@
 {% endblock heading %}
 
 {% block content %}
-    <form action="/bets/new" method="post" class="form-horizontal">
+    <form action="/bets/new/" method="post" class="form-horizontal">
         {% csrf_token %}
         {% if form.errors %}
             <div class="alert alert-error">
-                You did something wrong!!
+                Please take a look at required fields!!
             </div>
         {% endif %}
         {% for field in form %}
@@ -29,5 +29,9 @@
                 </div>
             </div>
         {% endfor %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">Create new bet</button>
+            <button type="button" class="btn btn-danger" onClick="window.location.href='/bets/index'">Cancel</button>
+        </div>
    </form>
 {% endblock content %}

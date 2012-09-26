@@ -2,13 +2,16 @@
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from WettApp.bets.models import Bet
+from django.http import HttpResponseRedirect
+from WettApp.bets.models import Bet, BetScore
 from WettApp.bets.forms import NewBetForm
+from WettApp.users.models import UserProfile
+import datetime
 
 
 @login_required
 def index(request):
-    user_bets = Bet.objects.filter(participants__in=[request.user])
+    user_bets = Bet.objects.filter(participants__user__in=[request.user])
     bet_list = []
     for bet in user_bets:
         scores_list = []
@@ -16,7 +19,7 @@ def index(request):
         for participant in bet.participants.all():
             score = bet.participant_score(participant)
             scores_list.append((participant, score))
-            if participant == request.user:
+            if participant.user == request.user:
                 score_diff += score.score
             else:
                 score_diff -= score.score
@@ -31,7 +34,7 @@ def details(request, bet_id):
     bet_data['bet'] = current_bet
     for participant in current_bet.participants.all():
         score = current_bet.participant_score(participant)
-        if participant == request.user:
+        if participant.user == request.user:
             bet_data['yourself'] = score
         else:
             bet_data['opponent'] = (participant, score)
@@ -41,11 +44,33 @@ def details(request, bet_id):
 @login_required
 def new_bet(request):
     if request.method == 'POST':
-        form = NewBetForm(request.POST, request.user)
+        cancel = request.POST.get('cancel', None)
+        if cancel:
+            return HttpResponseRedirect('bets/index.html')
+        form = NewBetForm(request.POST, user=request.user)
         if form.is_valid():
-            pass
+            # we should take a look at this code looks ugly... 
+            current_user = UserProfile.objects.get(user__username=request.user.username)
+            new_bet = Bet()
+            new_bet.title = form.cleaned_data['title']
+            new_bet.start_date = datetime.datetime.now()
+            new_bet.description = form.cleaned_data['description']
+            new_bet.save()
+            new_bet.participants.add(current_user, form.cleaned_data['opponent'])
+            new_bet.save()
+            bet_score = BetScore()
+            bet_score.score = 0
+            bet_score.user = current_user
+            bet_score.bet = new_bet
+            bet_score.save()
+            bet_score = BetScore()
+            bet_score.score = 0
+            bet_score.user = form.cleaned_data['opponent']
+            bet_score.bet = new_bet
+            bet_score.save()
+            return HttpResponseRedirect('/bets/index')
     else:
-        form = NewBetForm(request.user)
+        form = NewBetForm(user=request.user)
     return render(request, 'bets/new.html', {'form': form})
 
 

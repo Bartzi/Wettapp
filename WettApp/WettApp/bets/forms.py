@@ -2,8 +2,8 @@
 
 from django import forms
 from WettApp.users.models import UserProfile
-from django.contrib.auth.models import User
 from WettApp.bets.models import Bet
+
 
 class NewBetForm(forms.Form):
     title = forms.CharField(max_length=100)
@@ -14,5 +14,4 @@ class NewBetForm(forms.Form):
         user = kwargs.pop('user', None)
         super(NewBetForm, self).__init__(*args, **kwargs)
         if user:
-            self.fields['opponent'].queryset = UserProfile.objects.filter(user__in=buddies)
-
+            self.fields['opponent'].queryset = UserProfile.objects.filter(buddies__username__exact=user.username)
