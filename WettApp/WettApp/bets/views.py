@@ -36,7 +36,7 @@ def details(request, bet_id):
     user_found = False
     for participant in current_bet.participants.all():
         score = current_bet.participant_score(participant)
-        if participant.user == request.user:
+        if participant == request.user:
             bet_data['yourself'] = score
             user_found = True
         else:
