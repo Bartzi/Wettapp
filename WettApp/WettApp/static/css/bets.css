@@ -65,6 +65,15 @@
     box-shadow: 3px 3px 5px 6px #ccc;
 }
 
+.undecided{
+    background-color: #FDDAAA;
+    border-color: #F89406;
+}
+
+.undecided:hover{
+    box-shadow: 3px 3px 5px 6px #ccc;
+}
+
 .bet-overview-table{
     text-align: center;
     width: 100%;
