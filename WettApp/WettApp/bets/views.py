@@ -12,7 +12,7 @@ import datetime
 
 @login_required
 def index(request):
-    user_bets = Bet.objects.filter(participants__user__in=[request.user])
+    user_bets = Bet.objects.filter(participants__in=[request.user])
     bet_list = []
     for bet in user_bets:
         scores_list = []
@@ -20,7 +20,7 @@ def index(request):
         for participant in bet.participants.all():
             score = bet.participant_score(participant)
             scores_list.append((participant, score))
-            if participant.user == request.user:
+            if participant == request.user:
                 score_diff += score.score
             else:
                 score_diff -= score.score
@@ -56,17 +56,16 @@ def new_bet(request):
         form = NewBetForm(request.POST, user=request.user)
         if form.is_valid():
             # we should take a look at this code looks ugly...
-            current_user = UserProfile.objects.get(user=request.user)
             new_bet = Bet()
             new_bet.title = form.cleaned_data['title']
             new_bet.start_date = datetime.datetime.now()
             new_bet.description = form.cleaned_data['description']
             new_bet.save()
-            new_bet.participants.add(current_user, form.cleaned_data['opponent'])
+            new_bet.participants.add(request.user, form.cleaned_data['opponent'])
             new_bet.save()
             bet_score = BetScore()
             bet_score.score = 0
-            bet_score.user = current_user
+            bet_score.user = request.user
             bet_score.bet = new_bet
             bet_score.save()
             bet_score = BetScore()
