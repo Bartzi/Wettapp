@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from WettApp.bets.models import Bet, BetScore
 from WettApp.bets.forms import NewBetForm
 from WettApp.users.models import UserProfile
+from django.contrib import messages
 import datetime
 
 
@@ -32,12 +33,17 @@ def details(request, bet_id):
     bet_data = {}
     current_bet = Bet.objects.get(id=bet_id)
     bet_data['bet'] = current_bet
+    user_found = False
     for participant in current_bet.participants.all():
         score = current_bet.participant_score(participant)
         if participant.user == request.user:
             bet_data['yourself'] = score
+            user_found = True
         else:
             bet_data['opponent'] = (participant, score)
+    if not user_found:
+        messages.error(request, 'Do not try to view content that does not belong to you!')
+        return HttpResponseRedirect('/bets/index')
     return render(request, 'bets/details.html', {'bet_data': bet_data})
 
 
@@ -49,8 +55,8 @@ def new_bet(request):
             return HttpResponseRedirect('bets/index.html')
         form = NewBetForm(request.POST, user=request.user)
         if form.is_valid():
-            # we should take a look at this code looks ugly... 
-            current_user = UserProfile.objects.get(user__username=request.user.username)
+            # we should take a look at this code looks ugly...
+            current_user = UserProfile.objects.get(user=request.user)
             new_bet = Bet()
             new_bet.title = form.cleaned_data['title']
             new_bet.start_date = datetime.datetime.now()
@@ -68,6 +74,7 @@ def new_bet(request):
             bet_score.user = form.cleaned_data['opponent']
             bet_score.bet = new_bet
             bet_score.save()
+            messages.success(request, 'successfully added new bet')
             return HttpResponseRedirect('/bets/index')
     else:
         form = NewBetForm(user=request.user)
@@ -77,5 +84,7 @@ def new_bet(request):
 def get_score_class(score_diff):
     if score_diff < 0:
         return "warning"
-    else:
+    elif score_diff > 0:
         return "good"
+    else:
+        return "undecided"
