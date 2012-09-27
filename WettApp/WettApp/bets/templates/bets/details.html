@@ -1,0 +1,47 @@
+{% extends "bets/base.html" %}
+
+{% block navbar-bets %}
+    class="active"
+{% endblock navbar-bets %}
+
+{% block heading %}
+    <h2>Some more details on your bet</h2>
+    <h1>{{bet_data.bet.title}}</h1>
+{% endblock heading %}
+
+{% block content %}
+   <div class="bet-details-grid ">
+        <div class="row show-grid">
+            <div class="span3">
+                <strong> Title </strong>
+            </div>
+            <div class="span8">
+                {{bet_data.bet.title}}
+            </div>
+        </div>
+        <div class="row show-grid">
+            <div class="span3">
+                <strong> Description </strong>
+            </div>
+            <div class="span8">
+                {{bet_data.bet.description}}
+            </div>
+        </div>
+        <div class="row show-grid ">
+            <div class="span5">
+                <strong>Your points</strong>
+            </div>
+            <div class="span5 offset1">
+                <strong>Your opponent {{bet_data.opponent.0.user.username}} points</strong>
+            </div>
+        </div>
+         <div class="row show-grid">
+            <div class="span5">
+                <strong>{{bet_data.yourself}}</strong>
+            </div>
+            <div class="span5 offset1">
+                <strong>{{bet_data.opponent.1}}</strong>
+            </div>
+        </div>
+   </div>
+{% endblock content %}

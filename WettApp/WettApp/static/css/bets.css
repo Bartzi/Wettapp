@@ -1,3 +1,26 @@
+.show-grid{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.row{
+  margin-left: 20px;
+}
+
+.show-grid [class*="span"] {
+  background-color: #eee;
+  text-align: center;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+  min-height: 40px;
+  line-height: 40px;
+}
+
+.show-grid:hover [class*="span"]{
+    background: #ddd;
+}
+
 /* bet titles */
 .bet-title{
     text-align: center;
@@ -7,6 +30,48 @@
 
 .anti-overflow{
     overflow: hidden;
+}
+
+.bet-scores{
+    float: left;
+    width: 50%;
+}
+
+.bet-details-link:link, .bet-details-link:visited{
+    color: #000000;
+    text-decoration: none;
+}
+
+.bet-details-link:hover{
+    color: #000000;
+
+}
+
+.warning{
+    background-color: #FF8080;
+    border-color: red;
+}
+
+.warning:hover{
+    box-shadow: 3px 3px 5px 6px #ccc;
+}
+
+.good{
+    background-color: #DFF0D8;
+    border-color: green;
+}
+
+.good:hover{
+    box-shadow: 3px 3px 5px 6px #ccc;
+}
+
+.undecided{
+    background-color: #FDDAAA;
+    border-color: #F89406;
+}
+
+.undecided:hover{
+    box-shadow: 3px 3px 5px 6px #ccc;
 }
 
 .bet-overview-table{
@@ -22,4 +87,8 @@
 
 .bet-overview-table th{
     font-weight: bold;
+}
+
+.action_bar{
+  margin-bottom: 10px;
 }
