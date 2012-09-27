@@ -11,3 +11,27 @@
 {% block heading %}
     <h1>Buddy List</h1>
 {% endblock heading %}
+
+{% block content %}
+    <table class="table">
+    
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email Address</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for buddy in buddies %}
+            <tr>
+                <td>{{ buddy.username }}</td>
+                <td>{{ buddy.email }}</td>
+                <td></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+    </table>
+{% endblock content %}

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth import views as authviews
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from WettApp.users.forms import LoginForm
@@ -13,5 +14,7 @@ def login(request):
                            authentication_form=LoginForm)
 
 
+@login_required
 def buddy_list(request):
-    return render(request, 'users/buddy_list.html')
+    buddies = request.user.get_profile().buddies.all()
+    return render(request, 'users/buddy_list.html', {'buddies': buddies})
