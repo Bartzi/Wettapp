@@ -10,7 +10,10 @@
 {% endblock heading %}
 
 {% block content %}
-   <div class="bet-details-grid ">
+    <div class="action-bar details-displacement">
+        <a class="btn btn-inverse btn-large" href="/bets/finish/{{ bet_data.bet.id }}">finish this bet</a>
+    </div>
+    <div class="bet-details-grid ">
         <div class="row show-grid">
             <div class="span3">
                 <strong> Title </strong>
@@ -43,5 +46,5 @@
                 <strong>{{bet_data.opponent.1}}</strong>
             </div>
         </div>
-   </div>
+    </div>
 {% endblock content %}

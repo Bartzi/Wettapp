@@ -89,6 +89,10 @@
     font-weight: bold;
 }
 
-.action_bar{
+.action-bar{
   margin-bottom: 10px;
+}
+
+.details-displacement{
+  margin-left: 40px;
 }
