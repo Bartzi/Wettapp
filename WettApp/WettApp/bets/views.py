@@ -30,29 +30,17 @@ def index(request):
 
 @login_required
 def details(request, bet_id):
-    bet_data = {}
-    current_bet = Bet.objects.get(id=bet_id)
-    bet_data['bet'] = current_bet
-    user_found = False
-    for participant in current_bet.participants.all():
-        score = current_bet.participant_score(participant)
-        if participant == request.user:
-            bet_data['yourself'] = score
-            user_found = True
-        else:
-            bet_data['opponent'] = (participant, score)
-    if not user_found:
-        messages.error(request, 'Do not try to view content that does not belong to you!')
+    try:
+        bet_data = prepare_bet_data(request, bet_id)
+        return render(request, 'bets/details.html', {'bet_data': bet_data})
+    except:
+        messages.error(request, 'You can not view Bets you are not involved in!')
         return HttpResponseRedirect('/bets/index')
-    return render(request, 'bets/details.html', {'bet_data': bet_data})
 
 
 @login_required
 def new_bet(request):
     if request.method == 'POST':
-        cancel = request.POST.get('cancel', None)
-        if cancel:
-            return HttpResponseRedirect('bets/index.html')
         form = NewBetForm(request.POST, user=request.user)
         if form.is_valid():
             # we should take a look at this code looks ugly...
@@ -78,6 +66,30 @@ def new_bet(request):
     else:
         form = NewBetForm(user=request.user)
     return render(request, 'bets/new.html', {'form': form})
+
+
+@login_required
+def finish_bet(request, bet_id):
+    try:
+        bet_data = prepare_bet_data(request, bet_id)
+        return render(request, 'bets/finish.html', {'bet_data': bet_data})
+    except:
+        messages.error(request, 'You can not end bets you are not involved in!')
+        return HttpResponseRedirect('/bets/index')
+
+
+def prepare_bet_data(request, bet_id):
+    bet_data = {}
+    current_bet = Bet.objects.get(id=bet_id)
+    current_bet.participants.get(username=request.user.username)
+    bet_data['bet'] = current_bet
+    for participant in current_bet.participants.all():
+        score = current_bet.participant_score(participant)
+        if participant == request.user:
+            bet_data['yourself'] = score
+        else:
+            bet_data['opponent'] = (participant, score)
+    return bet_data
 
 
 def get_score_class(score_diff):
