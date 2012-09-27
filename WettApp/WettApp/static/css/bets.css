@@ -1,4 +1,4 @@
-.show-grid{
+.grid{
     margin-top: 10px;
     margin-bottom: 20px;
 }
@@ -21,9 +21,11 @@
     background: #ddd;
 }
 
+.center-text{
+    text-align: center;
+}
 /* bet titles */
 .bet-title{
-    text-align: center;
     width: 100%;
     height: 45px;
 }
@@ -44,7 +46,6 @@
 
 .bet-details-link:hover{
     color: #000000;
-
 }
 
 .warning{
@@ -74,18 +75,18 @@
     box-shadow: 3px 3px 5px 6px #ccc;
 }
 
-.bet-overview-table{
+.bet-table{
     text-align: center;
     width: 100%;
 }
 
-.bet-overview-table th,.bet-overview-table td{
+.bet-table th,.bet-table td{
     padding: 8px;
     line-height: 20px;
     vertical-align: top;
 }
 
-.bet-overview-table th{
+.bet-table th{
     font-weight: bold;
 }
 
@@ -95,4 +96,13 @@
 
 .details-displacement{
   margin-left: 40px;
+}
+
+.finish-grid [class*="span"] {
+  text-align: center;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+  min-height: 40px;
+  line-height: 40px;
 }

@@ -32,6 +32,7 @@ def index(request):
 def details(request, bet_id):
     try:
         bet_data = prepare_bet_data(request, bet_id)
+
         return render(request, 'bets/details.html', {'bet_data': bet_data})
     except:
         messages.error(request, 'You can not view Bets you are not involved in!')
@@ -72,6 +73,9 @@ def new_bet(request):
 def finish_bet(request, bet_id):
     try:
         bet_data = prepare_bet_data(request, bet_id)
+        bet_data['yourself'][1].delete()
+        bet_data['opponent'][1].delete()
+        bet_data['bet'].delete()
         return render(request, 'bets/finish.html', {'bet_data': bet_data})
     except:
         messages.error(request, 'You can not end bets you are not involved in!')
@@ -86,7 +90,7 @@ def prepare_bet_data(request, bet_id):
     for participant in current_bet.participants.all():
         score = current_bet.participant_score(participant)
         if participant == request.user:
-            bet_data['yourself'] = score
+            bet_data['yourself'] = (participant, score)
         else:
             bet_data['opponent'] = (participant, score)
     return bet_data

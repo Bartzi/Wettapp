@@ -1,0 +1,38 @@
+{% extends "bets/base.html" %}
+
+{% block navbar-bets %}
+    class="active"
+{% endblock navbar-bets %}
+
+{% block heading %}
+    <h2>Summary for bet:</h2>
+    <h1>{{ bet_data.bet.title }}
+{% endblock heading %}
+
+{% block content %}
+    <a class="bet-details-link" href="/bets/index">
+        {% if bet_data.yourself.1.score = bet_data.opponent.1.score %}  
+                <div class="hero-unit center-text undecided">
+                    <h1>Nobody wins!</h1>      
+        {% else %}
+            {% if bet_data.yourself.1.score > bet_data.opponent.1.score %}
+                <div class="hero-unit center-text good">
+                    <h1>You win!!</h1>
+            {% else %}
+                <div class="hero-unit center-text warning">
+                    <h1> Oh no! You loose!!</h1>
+            {% endif %}
+        {% endif %}
+            <div>
+                <div class="row finish-grid grid ">
+                    <div class="span4"> <h2>Your score</h2> </div> 
+                    <div class="span4 offset1"> <h2>{{ bet_data.opponent.0.username }}s score </h2></div>
+                </div>
+                <div class="row finish-grid grid">
+                    <div class="span4"><h2>{{ bet_data.yourself.1.score }} </h2></div>
+                        <div class="span4 offset1"> <h2>{{ bet_data.opponent.1.score }} </h2></div>
+                </div>   
+            </div>
+        </div>
+    </a>
+{% endblock content %}

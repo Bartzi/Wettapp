@@ -14,7 +14,7 @@
         <a class="btn btn-inverse btn-large" href="/bets/finish/{{ bet_data.bet.id }}">finish this bet</a>
     </div>
     <div class="bet-details-grid ">
-        <div class="row show-grid">
+        <div class="row show-grid grid">
             <div class="span3">
                 <strong> Title </strong>
             </div>
@@ -22,7 +22,7 @@
                 {{bet_data.bet.title}}
             </div>
         </div>
-        <div class="row show-grid">
+        <div class="row show-grid grid">
             <div class="span3">
                 <strong> Description </strong>
             </div>
@@ -30,7 +30,7 @@
                 {{bet_data.bet.description}}
             </div>
         </div>
-        <div class="row show-grid ">
+        <div class="row show-grid grid">
             <div class="span5">
                 <strong>Your points</strong>
             </div>
@@ -38,9 +38,9 @@
                 <strong>Your opponent {{bet_data.opponent.0.username}} points</strong>
             </div>
         </div>
-         <div class="row show-grid">
+         <div class="row show-grid grid">
             <div class="span5">
-                <strong>{{bet_data.yourself}}</strong>
+                <strong>{{bet_data.yourself.1}}</strong>
             </div>
             <div class="span5 offset1">
                 <strong>{{bet_data.opponent.1}}</strong>
