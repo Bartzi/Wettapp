@@ -42,7 +42,6 @@ def new_bet(request):
     if request.method == 'POST':
         form = NewBetForm(request.POST, user=request.user)
         if form.is_valid():
-            # we should take a look at this code looks ugly...
             form.save(request.user)
             messages.success(request, 'successfully added new bet')
             return HttpResponseRedirect('/bets/index')
