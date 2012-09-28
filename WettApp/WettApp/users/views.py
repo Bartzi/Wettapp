@@ -16,5 +16,5 @@ def login(request):
 
 @login_required
 def buddy_list(request):
-    buddies = request.user.get_profile().buddies.all()
+    buddies = request.user.get_profile().buddies()
     return render(request, 'users/buddy_list.html', {'buddies': buddies})
