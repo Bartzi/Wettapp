@@ -30,7 +30,6 @@ def index(request):
 def details(request, bet_id):
     try:
         bet_data = prepare_bet_data(request, bet_id)
-
         return render(request, 'bets/details.html', {'bet_data': bet_data})
     except:
         messages.error(request, 'You can not view Bets you are not involved in!')
