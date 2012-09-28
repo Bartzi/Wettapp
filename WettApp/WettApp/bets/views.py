@@ -5,9 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from WettApp.bets.models import Bet, BetScore
 from WettApp.bets.forms import NewBetForm
-from WettApp.users.models import UserProfile
 from django.contrib import messages
-import datetime
 
 
 @login_required
@@ -45,23 +43,7 @@ def new_bet(request):
         form = NewBetForm(request.POST, user=request.user)
         if form.is_valid():
             # we should take a look at this code looks ugly...
-            new_bet = Bet()
-            new_bet.title = form.cleaned_data['title']
-            new_bet.start_date = datetime.datetime.now()
-            new_bet.description = form.cleaned_data['description']
-            new_bet.save()
-            new_bet.participants.add(request.user, form.cleaned_data['opponent'])
-            new_bet.save()
-            bet_score = BetScore()
-            bet_score.score = 0
-            bet_score.user = request.user
-            bet_score.bet = new_bet
-            bet_score.save()
-            bet_score = BetScore()
-            bet_score.score = 0
-            bet_score.user = form.cleaned_data['opponent']
-            bet_score.bet = new_bet
-            bet_score.save()
+            form.save(request.user)
             messages.success(request, 'successfully added new bet')
             return HttpResponseRedirect('/bets/index')
     else:
