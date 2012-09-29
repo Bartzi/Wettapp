@@ -1,26 +1,22 @@
-{% extends "bets/base.html" %}
-
-{% block navbar-bets %}
-    class="active"
-{% endblock navbar-bets %}
+{% extends 'bets/base.html' %}
 
 {% block heading %}
     <h2>Summary for bet:</h2>
-    <h1>{{ bet_data.bet.title }}
+    <h1>{{ bet_data.bet.title }}</h1>
 {% endblock heading %}
 
 {% block content %}
-    <a class="bet-details-link" href="/bets/index">
+    <a class="bet-details-link" href="{% url index-bets %}">
         {% if bet_data.yourself.1.score = bet_data.opponent.1.score %}  
-                <div class="hero-unit center-text undecided">
-                    <h1>Nobody wins!</h1>      
+            <div class="hero-unit center-text undecided">
+                <h1>Nobody wins!</h1>      
         {% else %}
             {% if bet_data.yourself.1.score > bet_data.opponent.1.score %}
-                <div class="hero-unit center-text good">
-                    <h1>You win!!</h1>
+            <div class="hero-unit center-text good">
+                <h1>You win!!</h1>
             {% else %}
-                <div class="hero-unit center-text warning">
-                    <h1> Oh no! You loose!!</h1>
+            <div class="hero-unit center-text warning">
+                <h1> Oh no! You loose!!</h1>
             {% endif %}
         {% endif %}
             <div>

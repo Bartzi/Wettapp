@@ -4,10 +4,6 @@
     Your Bets
 {% endblock title %}
 
-{% block navbar-bets %}
-    class="active"
-{% endblock navbar-bets %}
-
 {% block heading %}
     <h1>Your Bets</h1>
 {% endblock heading %}
@@ -23,16 +19,16 @@
     {% endif %}
     <div class="action-bar">
         {# here we should place buttons like "start new bet" and "statistics" #}
-        <a class="btn btn-inverse btn-large" href="/bets/new">New bet</a> 
+        <a class="btn btn-inverse btn-large" href="{% url new-bet %}">New bet</a> 
     </div>
     <div class="bet_overview">
         {% if bet_list %}
             <ul class="thumbnails">
                 {% for bet_tuple in bet_list %}
-                    <li class=span4>
-                        <a class="bet-details-link" href="/bets/details/{{bet_tuple.0.id}}">
+                    <li class="span4">
+                        <a class="bet-details-link" href="{% url bet-details bet_tuple.0.id %}">
                             <div class="thumbnail {{bet_tuple.2}}">
-                                    <h2 class="bet-title center-text anti-overflow">{{bet_tuple.0.title}}</h2>
+                                <h2 class="bet-title center-text anti-overflow">{{bet_tuple.0.title}}</h2>
                                     {% for score_tuple in bet_tuple.1 %}
                                         <div class="bet-scores">
                                             <table class="bet-table">
@@ -45,8 +41,7 @@
                                             </table>
                                         </div>
                                     {% endfor %}
-                                    <div class="clearfix">
-                                    </div>
+                                <div class="clearfix"></div>
                             </div>
                         </a>
                     </li>
@@ -55,7 +50,5 @@
         {% else %}
             <h1> There are no bets yet!! </h1>
         {% endif %}
-
-       
     </div>
 {% endblock content %}
