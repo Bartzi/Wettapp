@@ -28,7 +28,9 @@
             <tr>
                 <td>{{ buddy.username }}</td>
                 <td>{{ buddy.email }}</td>
-                <td></td>
+                <td>
+                    <a href="{% url new-bet buddy.pk %}">start bet</a>
+                </td>
             </tr>
         {% endfor %}
     </tbody>

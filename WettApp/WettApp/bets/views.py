@@ -2,6 +2,7 @@
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 
 from WettApp.bets.forms import NewBetForm
@@ -33,7 +34,7 @@ def details(request, bet_id):
 
 
 @login_required
-def new_bet(request):
+def new_bet(request, opponent_id=None):
     if request.method == 'POST':
         form = NewBetForm(request.POST, user=request.user)
         if form.is_valid():
@@ -41,7 +42,10 @@ def new_bet(request):
             messages.success(request, 'successfully added new bet')
             return redirect('index-bets')
     else:
-        form = NewBetForm(user=request.user)
+        initial = {}
+        if opponent_id:
+            initial['opponent'] = User.objects.get(pk=opponent_id)
+        form = NewBetForm(user=request.user, initial=initial)
     return render(request, 'bets/new.html', {'form': form})
 
 
