@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.models import User
-# from django.db.models.signals import m2m_changed
 from django.db import models
-# from django.dispatch import receiver
 
 
 class UserProfile(models.Model):
