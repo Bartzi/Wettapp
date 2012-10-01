@@ -48,8 +48,15 @@
             <div class="span5">
                 <strong>{{bet_data.yourself.1}}</strong>
             </div>
-          <div class="span5 offset1" id="increase-div" onmouseover="showIncrease(this)" onmouseout="hideIncrease(this)">
-                <strong>{{bet_data.opponent.1}}</strong>
+          <div class="span5 offset1" id="increase-div">
+                <div class="increase increase-score">
+                    <strong>{{bet_data.opponent.1}}</strong>
+                </div>
+                <div class="increase increase-button">
+                    <i class='icon-plus'></i>
+                </div>
+                <div class="clearfix" id="clearfix-details">
+                </div>
             </div>
         </div>
     </div>

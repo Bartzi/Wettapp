@@ -98,11 +98,14 @@
   margin-left: 40px;
 }
 
-.finish-grid [class*="span"] {
-  text-align: center;
-  -webkit-border-radius: 3px;
-     -moz-border-radius: 3px;
-          border-radius: 3px;
-  min-height: 40px;
-  line-height: 40px;
+.increase{
+  float: left;
+}
+
+.increase-score{
+  margin-left: 50%;
+}
+
+.increase-button{
+  margin-left: 42%;
 }

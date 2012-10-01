@@ -1,34 +1,25 @@
 // javascript helper functions for bets/details.html
 
-var content;
 
-function saveInnerHtml()
+$(document).ready(function()
 {
-    content = document.getElementById("increase-div").innerHTML;
+    $("#increase-div").mouseover(showIncrease);
+    $("#increase-div").mouseout(hideIncrease);
+    $(".increase.increase-button").click(test);
+    $(".increase.increase-button").hide();  
+})
+
+function showIncrease()
+{
+   $(".increase.increase-button").show();  
 }
 
-window.onload = saveInnerHtml;
-
-function showIncrease(obj)
+function hideIncrease()
 {
-    if (document.getElementById("script-div"))
-    {
-        return;
-    }
-    var newDiv = document.createElement("div");
-    var classAttribute = document.createAttribute("class");
-    classAttribute.nodeValue = "increase";
-    var idAttribute = document.createAttribute("id");
-    idAttribute.nodeValue = "script-div";
-    newDiv.setAttributeNode(classAttribute);
-    newDiv.setAttributeNode(idAttribute);
-    newDiv.innerHTML = "<i class='icon-plus'></i>"
-
-    obj.appendChild(newDiv);
+    $(".increase.increase-button").hide();    
 }
 
-function hideIncrease(obj)
+function test()
 {
-    var divToRemove = document.getElementById("script-div");
-    obj.removeChild(divToRemove);    
+    alert("test");
 }
