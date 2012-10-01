@@ -2,13 +2,33 @@
 
 var content;
 
+function saveInnerHtml()
+{
+    content = document.getElementById("increase-div").innerHTML;
+}
+
+window.onload = saveInnerHtml;
+
 function showIncrease(obj)
 {
-    content = obj.innerHTML;
-    obj.innerHTML += "<div class='increase-button'><button type='button'><i class='icon-plus'></i></button></div>";
+    if (document.getElementById("script-div"))
+    {
+        return;
+    }
+    var newDiv = document.createElement("div");
+    var classAttribute = document.createAttribute("class");
+    classAttribute.nodeValue = "increase";
+    var idAttribute = document.createAttribute("id");
+    idAttribute.nodeValue = "script-div";
+    newDiv.setAttributeNode(classAttribute);
+    newDiv.setAttributeNode(idAttribute);
+    newDiv.innerHTML = "<i class='icon-plus'></i>"
+
+    obj.appendChild(newDiv);
 }
 
 function hideIncrease(obj)
 {
-    obj.innerHTML = content;
+    var divToRemove = document.getElementById("script-div");
+    obj.removeChild(divToRemove);    
 }
