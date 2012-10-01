@@ -9,4 +9,5 @@ urlpatterns = patterns('WettApp.bets.views',
     url(ur'^details/(?P<bet_id>\d+)/$', 'details', name='bet-details'),
     url(ur'^new/$', 'new_bet', name='new-bet-form'),
     url(ur'^finish/(?P<bet_id>\d+)/$', 'finish_bet'),
+    url(ur'increase/$', 'increase_score'),
 )

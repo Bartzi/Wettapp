@@ -2,7 +2,7 @@
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from WettApp.bets.models import Bet, BetScore
 from WettApp.bets.forms import NewBetForm
 from django.contrib import messages
@@ -59,6 +59,21 @@ def finish_bet(request, bet_id):
         return render(request, 'bets/finish.html', {'bet_data': bet_data})
     except:
         messages.error(request, 'You can not end bets you are not involved in!')
+        return HttpResponseRedirect('/bets/index')
+
+
+@login_required
+def increase_score(request):
+    if request.is_ajax():
+        bet_id = request.GET["bet"]
+        bet = Bet.objects.get(id=bet_id)
+        for participant in bet.participants.all():
+            if participant != request.user:
+                bet_score = bet.participant_score(participant)
+                bet_score.score += 1
+                bet_score.save()
+                return HttpResponse(bet_score.score)
+    else:
         return HttpResponseRedirect('/bets/index')
 
 
