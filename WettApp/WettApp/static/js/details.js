@@ -63,11 +63,3 @@ function increaseScore()
         jQuery(".increase.increase-score").html(htmlString);
     });
 }
-
-function getBetId()
-{
-    var url = document.location.href;
-    var IdString = url.match(/\/\d+\//);
-    return url.substr(IdString.index, IdString.lastIndex).match(/\d+/);
-    
-}
