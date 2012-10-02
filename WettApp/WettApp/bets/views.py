@@ -3,6 +3,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from WettApp.bets.forms import NewBetForm
@@ -54,6 +55,21 @@ def finish_bet(request, bet_id):
     bet_data = prepare_bet_data(request, bet_id)
     bet_data['bet'].delete()
     return render(request, 'bets/finish.html', {'bet_data': bet_data})
+
+
+@login_required
+def increase_score(request):
+    if request.is_ajax():
+        bet_id = request.GET["bet"]
+        bet = Bet.objects.get(id=bet_id)
+        for participant in bet.participants.all():
+            if participant != request.user:
+                bet_score = bet.participant_score(participant)
+                bet_score.score += 1
+                bet_score.save()
+                return HttpResponse(bet_score.score)
+    else:
+        return redirect('index-bets')
 
 
 def prepare_bet_data(request, bet_id):
