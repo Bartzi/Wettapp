@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from WettApp.bets.forms import NewBetForm
-from WettApp.bets.models import Bet
+from WettApp.bets.models import Bet, BetScore
 
 
 @login_required
@@ -60,14 +60,18 @@ def finish_bet(request, bet_id):
 @login_required
 def increase_score(request):
     if request.is_ajax():
-        bet_id = request.GET["bet"]
-        bet = Bet.objects.get(id=bet_id)
-        for participant in bet.participants.all():
-            if participant != request.user:
-                bet_score = bet.participant_score(participant)
-                bet_score.score += 1
-                bet_score.save()
-                return HttpResponse(bet_score.score)
+        your_score_id = request.POST["your_score_id"]
+        opponent_score_id = request.POST["opponent_score_id"]
+        opponent_bet_score = BetScore.objects.get(id=opponent_score_id)
+        your_bet_score = BetScore.objects.get(id=your_score_id)
+        if opponent_bet_score.bet != your_bet_score.bet:
+            messages.error(request, 'hmm something went wrong!')
+            return redirect('index-bets')
+        if your_bet_score.user != request.user:
+            return redirect('index-bets')
+        opponent_bet_score.score += 1
+        opponent_bet_score.save()
+        return HttpResponse(opponent_bet_score.score)
     else:
         return redirect('index-bets')
 

@@ -13,7 +13,10 @@
 
 {% block content %}
     <div class="action-bar details-displacement">
-        <a class="btn btn-inverse btn-large" href="{% url finish-bet bet_data.bet.id %}">finish this bet</a>
+        <form action="{% url finish-bet bet_data.bet.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-inverse btn-large">finish this bet</button>
+        </form>
     </div>
     <div class="bet-details-grid ">
         <div class="row show-grid grid">
@@ -42,13 +45,15 @@
         </div>
          <div class="row show-grid grid">
             <div class="span5">
-                <strong>{{bet_data.yourself.1}}</strong>
+                <div class="your-points" data-score="{{ bet_data.yourself.1.id }}">
+                    <strong>{{bet_data.yourself.1}}</strong>
+                </div>
             </div>
           <div class="span5 offset1" id="increase-div">
                 <div class="increase increase-score">
                     <strong>{{bet_data.opponent.1}}</strong>
                 </div>
-                <div class="increase increase-button">
+                <div class="increase increase-button" data-score="{{ bet_data.opponent.1.id }}">
                     <i class='icon-plus'></i>
                 </div>
                 <div class="clearfix" id="clearfix-details">
