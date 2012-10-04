@@ -1,0 +1,90 @@
+{% extends 'users/base.html' %}
+
+{% block title %}
+    Edit Profile: {{ user_.username }}
+{% endblock title %}
+
+{% block heading %}
+    <h1>Edit Profile: {{ user_.username }}</h1>
+{% endblock heading %}
+
+{% block content %}
+    <form action="{{ request.path }}" method="post" class="form-horizontal">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert alert-error">
+                Profile could not be saved.
+            </div>
+        {% endif %}
+
+        {% if user.is_superuser %}
+            <div class="control-group {% if form.username.errors %}error{% endif %}">
+                <label class="control-label" for="{{ form.username.id_for_label }}">Username</label>
+                <div class="controls">
+                    {{ form.username }}
+                    <span class="help-inline">{{ form.username.errors|first }}</span>
+                </div>
+            </div>
+
+            <div class="control-group {% ifequal user.pk user_.pk %}hide{% endifequal %}
+                {% if form.is_active.errors or form.is_superuser.errors %}error{% endif %}">
+                <div class="controls">
+                    <label class="checkbox">
+                        {{ form.is_active }} Active 
+                        <span class="help-inline">{{ form.is_active.errors|first }}</span>
+                    </label>
+                </div>
+                <div class="controls">
+                    <label class="checkbox">
+                        {{ form.is_superuser }} Admin 
+                        <span class="help-inline">{{ form.is_superuser.errors|first }}</span>
+                    </label>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="control-group {% if form.email.errors %}error{% endif %}">
+            <label class="control-label" for="{{ form.email.id_for_label }}">Email Address</label>
+            <div class="controls">
+                {{ form.email }}
+                <span class="help-inline">{{ form.email.errors|first }}</span>
+            </div>
+        </div>
+        <hr />
+
+        {# password change #}
+        <div class="collapse-link">
+            <a data-toggle="collapse" href="#password-change">Passwort ändern</a>
+        </div>
+        <div id="password-change" class="collapse {% if form.old_password.errors or form.password1.errors or form.password2.errors %}in{% endif %}">
+            {% if not user.is_superuser %}
+                <div class="control-group {% if form.old_password.errors %}error{% endif %}">
+                    <label class="control-label" for="{{ form.old_password.id_for_label }}">Old Password</label>
+                    <div class="controls">
+                        {{ form.old_password }}
+                        <span class="help-inline">{{ form.old_password.errors|first }}</span>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="control-group {% if form.password1.errors %}error{% endif %}">
+                <label class="control-label" for="{{ form.password1.id_for_label }}">New Password</label>
+                <div class="controls">
+                    {{ form.password1 }}
+                    <span class="help-inline">{{ form.password1.errors|first }}</span>
+                </div>
+            </div>
+            <div class="control-group {% if form.password2.errors %}error{% endif %}">
+                <label class="control-label" for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                <div class="controls">
+                    {{ form.password2 }}
+                    <span class="help-inline">{{ form.password2.errors|first }}</span>
+                </div>
+            </div>
+        </div> {# /password change #}
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Profile</button>
+            <a href="{% url index-bets %}" class="btn">Cancel</a>
+        </div>
+   </form>
+{% endblock content %}
