@@ -5,8 +5,8 @@ jQuery(document).ready(function()
 {
     jQuery("#increase-div").mouseover(showIncrease);
     jQuery("#increase-div").mouseout(hideIncrease);
-    jQuery(".increase.increase-button").click(increaseScore);
-    jQuery(".increase.increase-button").hide();  
+    jQuery(".float-left.increase-button").click(increaseScore);
+    jQuery(".float-left.increase-button").hide();  
     var csrftoken = getCookie('csrftoken');
     jQuery.ajaxSetup({
         crossDomain: false,
@@ -41,12 +41,12 @@ function getCookie(name) {
 
 function showIncrease()
 {
-   jQuery(".increase.increase-button").show();  
+   jQuery(".float-left.increase-button").show();  
 }
 
 function hideIncrease()
 {
-    jQuery(".increase.increase-button").hide();    
+    jQuery(".float-left.increase-button").hide();    
 }
 
 function csrfSafeMethod(method)
@@ -56,10 +56,10 @@ function csrfSafeMethod(method)
 
 function increaseScore()
 {
-    var opponentScoreId = jQuery(".increase.increase-button").attr("data-score");
+    var opponentScoreId = jQuery(".float-left.increase-button").attr("data-score");
     var yourScoreId = jQuery(".your-points").attr("data-score");
     jQuery.post("/bets/increase/", { your_score_id: yourScoreId, opponent_score_id: opponentScoreId }, function(data){
         var htmlString = "<strong>" + data + "</strong>";
-        jQuery(".increase.increase-score").html(htmlString);
+        jQuery(".float-left.increase-score").html(htmlString);
     });
 }

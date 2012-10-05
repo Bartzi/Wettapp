@@ -15,6 +15,7 @@
     <div class="action-bar details-displacement">
         <form action="{% url finish-bet bet_data.bet.id %}" method="POST">
             {% csrf_token %}
+            <a href="{% url index-bets %}" class="btn btn-inverse btn-large"><i class="icon-arrow-left icon-white"></i></a>
             <button type="submit" class="btn btn-inverse btn-large">finish this bet</button>
         </form>
     </div>
@@ -50,10 +51,10 @@
                 </div>
             </div>
           <div class="span5 offset1" id="increase-div">
-                <div class="increase increase-score">
+                <div class="float-left increase-score">
                     <strong>{{bet_data.opponent.1}}</strong>
                 </div>
-                <div class="increase increase-button" data-score="{{ bet_data.opponent.1.id }}">
+                <div class="float-left increase-button" data-score="{{ bet_data.opponent.1.id }}">
                     <i class='icon-plus'></i>
                 </div>
                 <div class="clearfix" id="clearfix-details">
