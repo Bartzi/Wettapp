@@ -49,6 +49,9 @@ function hideIncrease()
     jQuery(".float-left.increase-button").hide();    
 }
 
+/*
+ * this function has been taken from https://docs.djangoproject.com/en/dev/ref/contrib/csrf/
+ */
 function csrfSafeMethod(method)
 {
     return (/^(GET|HEAD|OPTIONS|TRACE)$/).test(method);
