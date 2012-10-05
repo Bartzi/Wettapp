@@ -24,3 +24,16 @@ class BetScore(models.Model):
 
     def __unicode__(self):
         return unicode(self.score)
+
+
+class BetHistoryEntry(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    current_score = models.IntegerField(default=0)
+    user = models.ForeignKey(User, related_name='bet_history')
+    bet = models.ForeignKey(Bet, related_name='bet_history')
+
+    def __unicode__(self):
+        return "date: " + unicode(self.date) + "current score: " + unicode(self.current_score)
+
+    def has_been_changed_recently(self):
+        pass
