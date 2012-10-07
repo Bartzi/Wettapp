@@ -62,4 +62,22 @@
             </div>
         </div>
     </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Who</th>
+                <th>When</th>
+                <th>What</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for history_entry in bet_data.history %}
+                <tr class=" {% if history_entry.user == bet_data.yourself.0.user %} success {% else %} error {% endif %}">
+                    <td> {{ history_entry.user }} </td>
+                    <td> {{ history_entry.date }} </td>
+                    <td> +1 </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock content %}
