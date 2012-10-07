@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from WettApp.bets.forms import NewBetForm
-from WettApp.bets.models import Bet, BetScore
+from WettApp.bets.models import Bet, BetScore, BetScoreHistoryEntry
 
 
 @login_required
@@ -69,6 +69,10 @@ def increase_score(request):
             return redirect('index-bets')
         if your_bet_score.user != request.user:
             return redirect('index-bets')
+        bet_history_entry = BetScoreHistoryEntry()
+        bet_history_entry.user = request.user
+        bet_history_entry.bet = your_bet_score.bet
+        bet_history_entry.save()
         opponent_bet_score.score += 1
         opponent_bet_score.save()
         return HttpResponse(opponent_bet_score.score)
@@ -85,6 +89,7 @@ def prepare_bet_data(request, bet_id):
             bet_data['yourself'] = (participant, score)
         else:
             bet_data['opponent'] = (participant, score)
+    bet_data['history'] = bet.bet_histories.all()
     return bet_data
 
 
