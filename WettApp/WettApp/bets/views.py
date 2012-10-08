@@ -75,7 +75,8 @@ def increase_score(request):
         bet_history_entry.save()
         opponent_bet_score.score += 1
         opponent_bet_score.save()
-        return HttpResponse(opponent_bet_score.score)
+        return_string = "{0}|{1}|{2}".format(opponent_bet_score.score, request.user, bet_history_entry.date.strftime("%b %d, %Y, %I:%M %p"))
+        return HttpResponse(return_string)
     else:
         return redirect('index-bets')
 
