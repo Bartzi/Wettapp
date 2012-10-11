@@ -1,12 +1,30 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
+
+from WettApp.users.models import UserProfile
 
 
 class LoginForm(AuthenticationForm):
     remember_me = forms.BooleanField(required=False)
+
+
+class RegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
+    def __init__(self, *args, **kwargs):
+        """ Make a nicer label for password confirmation field. """
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        self.fields['password2'].label = 'Confirm Password'
+
+    def save(self, *args, **kwargs):
+        self.instance.email = self.cleaned_data['email']
+        self.instance.is_active = False
+        super(RegisterForm, self).save(*args, **kwargs)
+        UserProfile(user=self.instance).save()
+        return self.instance
 
 
 class EditUserForm(forms.ModelForm):

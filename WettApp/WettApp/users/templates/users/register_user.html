@@ -1,0 +1,33 @@
+{% extends "users/base.html" %}
+
+{% block title %}
+    Create Account
+{% endblock title %}
+
+{% block heading %}
+    <h1>Create Account</h1>
+{% endblock heading %}
+
+{% block content %}
+    <form action="{{ request.path }}" method="post" class="form-horizontal">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert alert-error">
+                Account could not be created.
+            </div>
+        {% endif %}
+        {% for field in form %}
+            <div class="control-group {% if field.errors %}error{% endif %}">
+                <label class="control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <div class="controls">
+                    {{ field }}
+                    <span class="help-inline">{{ field.errors|first }}</span>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Create Account</button>
+            <a href="{% url index-bets %}" class="btn">Cancel</a>
+        </div>
+   </form>
+{% endblock content %}

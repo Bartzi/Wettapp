@@ -10,4 +10,7 @@ urlpatterns = patterns('WettApp.users.views',
         name='logout'),
     url(ur'^buddies/$', 'buddy_list', name='buddy-list'),
     url(ur'^edit/(?P<user_id>\d+)/$', 'edit_user', name='edit-user'),
+    url(ur'^register/$', 'register_user', name='register-user'),
+    url(ur'^activate/(?P<user_id>\d+)/(?P<key>\w+)/$', 'activate_user',
+        name='activate-user'),
 )
