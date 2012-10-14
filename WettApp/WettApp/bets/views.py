@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from pytz import timezone
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -75,7 +77,9 @@ def increase_score(request):
         bet_history_entry.save()
         opponent_bet_score.score += 1
         opponent_bet_score.save()
-        return_string = "{0}|{1}|{2}".format(opponent_bet_score.score, request.user, bet_history_entry.date.strftime("%b %d, %Y, %I:%M %p"))
+        timezone_berlin = timezone('Europe/Berlin')
+        date = bet_history_entry.date.astimezone(timezone_berlin)
+        return_string = "{0}|{1}|{2}".format(opponent_bet_score.score, request.user, date.strftime("%b %d, %Y, %I:%M %p"))
         return HttpResponse(return_string)
     else:
         return redirect('index-bets')

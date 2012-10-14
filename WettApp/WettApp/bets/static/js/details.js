@@ -66,7 +66,6 @@ function increaseScore()
         var score = data[0];
         var user = data[1];
         var date = data[2];
-        alert(date);
         var htmlString = "<strong>" + score + "</strong>";
         jQuery(".float-left.increase-score").html(htmlString);
     });
