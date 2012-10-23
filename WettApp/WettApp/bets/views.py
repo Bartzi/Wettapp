@@ -79,7 +79,7 @@ def increase_score(request):
         opponent_bet_score.save()
         timezone_berlin = timezone('Europe/Berlin')
         date = bet_history_entry.date.astimezone(timezone_berlin)
-        return_string = "{0}|{1}|{2}".format(opponent_bet_score.score, request.user, date.strftime("%b %d, %Y, %I:%M %p"))
+        return_string = "{ \"score\":\"{0}\", \"user\":\"{1}\", \"time\":\"{2}\"}".format(opponent_bet_score.score, request.user, date.strftime("%b %d, %Y, %I:%M %p"))
         return HttpResponse(return_string)
     else:
         return redirect('index-bets')

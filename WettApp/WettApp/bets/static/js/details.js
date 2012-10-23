@@ -62,11 +62,9 @@ function increaseScore()
     var opponentScoreId = jQuery(".float-left.increase-button").attr("data-score");
     var yourScoreId = jQuery(".your-points").attr("data-score");
     jQuery.post("/bets/increase/", { your_score_id: yourScoreId, opponent_score_id: opponentScoreId }, function(data){
-        data = data.split("|");
-        var score = data[0];
-        var user = data[1];
-        var date = data[2];
-        var htmlString = "<strong>" + score + "</strong>";
+        var returnObject = JSON.parse(data);
+        alert(returnObject);
+        var htmlString = "<strong>" + returnObject.score + "</strong>";
         jQuery(".float-left.increase-score").html(htmlString);
     });
 }
